@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verdeleve</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f1ec;
+    color: #2e2e2e;
+}
+
+header {
+    text-align: left;
+    padding: 10px;
+    background: #3b2a22;
+}
+
+.logo {
+    max-width: 300px;
+}
+
+/* ABAS */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.tab-btn {
+    padding: 22px 60px;
+    border: none;
+    background: #ddd;
+    cursor: pointer;
+    border-radius: 25px;
+    font-size: 26px;
+}
+
+.tab-btn.active {
+    background: #3b2a22;
+    color: #fff;
+}
+
+/* GRID */
+.products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 15px;
+}
+
+@media (max-width: 600px) {
+    .products {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* CARD */
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* IMAGEM (MANTIDA COMO VOCÊ QUER) */
+.card img {
+    width: 100%;
+    height: 700px;
+    object-fit: contain;
+}
+
+/* INFO */
+.info {
+    padding: 10px;
+    text-align: center;
+}
+
+.price {
+    font-weight: bold;
+    color: #7a5c4d;
+    margin: 5px 0;
+}
+
+/* BOTÃO */
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #3b2a22;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.btn-disabled {
+    background-color: #a0a0a0;
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* STATUS */
+.status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.disponivel {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.reservado {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.vendido {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logo.png" class="logo">
+</header>
+
+<!-- ABAS -->
+<div class="tabs">
+    <button class="tab-btn active" onclick="filtrar('todos', event)">Todos</button>
+    <button class="tab-btn" onclick="filtrar('brinco', event)">Brincos</button>
+    <button class="tab-btn" onclick="filtrar('colar', event)">Colares</button>
+    <button class="tab-btn" onclick="filtrar('bracelete', event)">Braceletes</button>
+</div>
+
+<section class="products">
+
+    <div class="card" data-categoria="colar">
+        <img src="joia1.jpeg">
+        <div class="info">
+            <span class="status disponivel">Disponível</span>
+            <div>Colar Natural de Madeira: Marchetaria em madeira, cedrinho, pinus, freijó, cordão camurça</div>
+            <div class="price">R$ 45</div>
+            <a class="btn" href="https://wa.me/5511963429803?text=Olá,%20tenho%20interesse%20no%20Brinco%20Madeira">
+                Comprar
+            </a>
+        </div>
+    </div>
+
+    <div class="card" data-categoria="colar">
+        <img src="joia2.jpeg">
+        <div class="info">
+            <span class="status reservado">disponível</span>
+            <div>Colar de Madeira: Marchetaria em madeira, cedrinho, pinus, freijó, cordão camurça</div>
+            <div class="price">R$ 85</div>
+            <a class="btn" href="#">
+                Ver disponibilidade
+            </a>
+        </div>
+    </div>
+
+    <div class="card" data-categoria="bracelete">
+        <img src="joia3.jpeg">
+        <div class="info">
+            <span class="status vendido">Vendido</span>
+            <div>Pulseira Rústica</div>
+            <div class="price">R$ 55</div>
+            <a class="btn btn-disabled">
+                Indisponível
+            </a>
+        </div>
+    </div>
+
+    <div class="card" data-categoria="brinco">
+        <img src="joia4.jpeg">
+        <div class="info">
+            <span class="status disponivel">Disponível</span>
+            <div>Brinco Madeira</div>
+            <div class="price">R$ 45</div>
+            <a class="btn" href="#">Comprar</a>
+        </div>
+    </div>
+
+    <div class="card" data-categoria="brinco">
+        <img src="joia5.jpeg">
+        <div class="info">
+            <span class="status reservado">Reservado</span>
+            <div>Brinco Madeira</div>
+            <div class="price">R$ 45</div>
+            <a class="btn" href="#">Ver disponibilidade</a>
+        </div>
+    </div>
+
+    <div class="card" data-categoria="brinco">
+        <img src="joia6.jpeg">
+        <div class="info">
+            <span class="status vendido">Vendido</span>
+            <div>Brinco Madeira</div>
+            <div class="price">R$ 45</div>
+            <a class="btn btn-disabled">Indisponível</a>
+        </div>
+    </div>
+
+</section>
+
+<footer>
+📲 WhatsApp: (11) 96342-9803
+</footer>
+
+<!-- SCRIPT -->
+<script>
+function filtrar(categoria, event) {
+    const cards = document.querySelectorAll('.card');
+    const botoes = document.querySelectorAll('.tab-btn');
+
+    botoes.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    cards.forEach(card => {
+        if (categoria === 'todos' || card.dataset.categoria === categoria) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+</script>
+
+</body>
+</html>
