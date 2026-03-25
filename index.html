@@ -11,28 +11,6 @@ body {
     font-family: Arial, sans-serif;
     background: #f4f1ec;
     color: #2e2e2e;
-    <div id="zoom" onclick="fecharZoom()">
-    <img id="img-zoom">
-</div>
-    #zoom {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-}
-
-#zoom img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 10px;
-    background: white;
-}
 }
 
 header {
@@ -42,24 +20,25 @@ header {
 }
 
 .logo {
-    max-width: 300px;
+    max-width: 180px;
 }
 
 /* ABAS */
 .tabs {
     display: flex;
-    justify-content: center;
+    width: 100%;
     gap: 10px;
     padding: 10px;
 }
 
 .tab-btn {
-    padding: 22px 60px;
+    flex: 1;
+    padding: 12px;
     border: none;
     background: #ddd;
     cursor: pointer;
     border-radius: 25px;
-    font-size: 26px;
+    font-size: 14px;
 }
 
 .tab-btn.active {
@@ -87,9 +66,12 @@ header {
     overflow: hidden;
     background: #fff;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-/* IMAGEM (MANTIDA COMO VOCÊ QUER) */
+/* IMAGEM RESPONSIVA + LUPA */
 .card img {
     width: 100%;
     height: 35vw;
@@ -97,8 +79,7 @@ header {
     min-height: 180px;
     object-fit: contain;
     padding: 10px;
-
-
+    cursor: zoom-in;
 }
 
 /* INFO */
@@ -122,6 +103,11 @@ header {
     text-decoration: none;
     border-radius: 5px;
     font-size: 13px;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    transition: 0.2s;
 }
 
 .btn-disabled {
@@ -156,6 +142,27 @@ header {
     color: #721c24;
 }
 
+/* ZOOM (LUPA) */
+#zoom {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+#zoom img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    background: white;
+}
+
 footer {
     text-align: center;
     padding: 15px;
@@ -184,40 +191,36 @@ footer {
         <img src="joia1.jpeg" onclick="ampliar(this)">
         <div class="info">
             <span class="status disponivel">Disponível</span>
-            <div>Colar Natural de Madeira: Marchetaria em madeira, cedrinho, pinus, freijó, cordão camurça</div>
+            <div>Colar Natural de Madeira</div>
             <div class="price">R$ 45</div>
-            <a class="btn" href="https://wa.me/5511963429803?text=Olá,%20tenho%20interesse%20no%20Brinco%20Madeira">
+            <a class="btn" href="https://wa.me/5511963429803?text=Olá,%20tenho%20interesse%20no%20Colar%20Natural">
                 Comprar
             </a>
         </div>
     </div>
 
     <div class="card" data-categoria="colar">
-        <img src="joia2.jpeg">
+        <img src="joia2.jpeg" onclick="ampliar(this)">
         <div class="info">
-            <span class="status reservado">disponível</span>
-            <div>Colar de Madeira: Marchetaria em madeira, cedrinho, pinus, freijó, cordão camurça</div>
+            <span class="status reservado">Reservado</span>
+            <div>Colar de Madeira</div>
             <div class="price">R$ 85</div>
-            <a class="btn" href="#">
-                Ver disponibilidade
-            </a>
+            <a class="btn" href="#">Ver disponibilidade</a>
         </div>
     </div>
 
     <div class="card" data-categoria="bracelete">
-        <img src="joia3.jpeg">
+        <img src="joia3.jpeg" onclick="ampliar(this)">
         <div class="info">
             <span class="status vendido">Vendido</span>
             <div>Pulseira Rústica</div>
             <div class="price">R$ 55</div>
-            <a class="btn btn-disabled">
-                Indisponível
-            </a>
+            <a class="btn btn-disabled">Indisponível</a>
         </div>
     </div>
 
     <div class="card" data-categoria="brinco">
-        <img src="joia4.jpeg">
+        <img src="joia4.jpeg" onclick="ampliar(this)">
         <div class="info">
             <span class="status disponivel">Disponível</span>
             <div>Brinco Madeira</div>
@@ -226,31 +229,16 @@ footer {
         </div>
     </div>
 
-    <div class="card" data-categoria="brinco">
-        <img src="joia5.jpeg">
-        <div class="info">
-            <span class="status reservado">Reservado</span>
-            <div>Brinco Madeira</div>
-            <div class="price">R$ 45</div>
-            <a class="btn" href="#">Ver disponibilidade</a>
-        </div>
-    </div>
-
-    <div class="card" data-categoria="brinco">
-        <img src="joia6.jpeg">
-        <div class="info">
-            <span class="status vendido">Vendido</span>
-            <div>Brinco Madeira</div>
-            <div class="price">R$ 45</div>
-            <a class="btn btn-disabled">Indisponível</a>
-        </div>
-    </div>
-
 </section>
 
 <footer>
 📲 WhatsApp: (11) 96342-9803
 </footer>
+
+<!-- ZOOM -->
+<div id="zoom" onclick="fecharZoom()">
+    <img id="img-zoom">
+</div>
 
 <!-- SCRIPT -->
 <script>
@@ -266,8 +254,10 @@ function filtrar(categoria, event) {
             card.style.display = 'block';
         } else {
             card.style.display = 'none';
+        }
+    });
+}
 
-            <script>
 function ampliar(img) {
     const zoom = document.getElementById("zoom");
     const imgZoom = document.getElementById("img-zoom");
@@ -280,7 +270,6 @@ function fecharZoom() {
     document.getElementById("zoom").style.display = "none";
 }
 </script>
-        }
 
 </body>
 </html>
