@@ -11,6 +11,28 @@ body {
     font-family: Arial, sans-serif;
     background: #f4f1ec;
     color: #2e2e2e;
+    <div id="zoom" onclick="fecharZoom()">
+    <img id="img-zoom">
+</div>
+    #zoom {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+#zoom img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    background: white;
+}
 }
 
 header {
@@ -159,7 +181,7 @@ footer {
 <section class="products">
 
     <div class="card" data-categoria="colar">
-        <img src="joia1.jpeg">
+        <img src="joia1.jpeg" onclick="ampliar(this)">
         <div class="info">
             <span class="status disponivel">Disponível</span>
             <div>Colar Natural de Madeira: Marchetaria em madeira, cedrinho, pinus, freijó, cordão camurça</div>
@@ -244,10 +266,21 @@ function filtrar(categoria, event) {
             card.style.display = 'block';
         } else {
             card.style.display = 'none';
-        }
-    });
+
+            <script>
+function ampliar(img) {
+    const zoom = document.getElementById("zoom");
+    const imgZoom = document.getElementById("img-zoom");
+
+    imgZoom.src = img.src;
+    zoom.style.display = "flex";
+}
+
+function fecharZoom() {
+    document.getElementById("zoom").style.display = "none";
 }
 </script>
+        }
 
 </body>
 </html>
