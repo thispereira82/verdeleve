@@ -91,12 +91,11 @@ header {
     transition: transform 0.3s ease;
 }
 
-/* EFEITO */
 .card:hover img {
     transform: scale(1.05);
 }
 
-/* OVERLAY MODERNO */
+/* OVERLAY (CORRIGIDO) */
 .overlay {
     position: absolute;
     inset: 0;
@@ -108,6 +107,7 @@ header {
     font-size: 14px;
     opacity: 0;
     transition: 0.3s;
+    pointer-events: none; /* 🔥 ESSA LINHA FAZ O ZOOM FUNCIONAR */
 }
 
 .card:hover .overlay {
@@ -229,6 +229,74 @@ footer {
         <a class="btn btn-disabled">Indisponível</a>
     </div>
 </div>
+
+<div class="card" data-categoria="bracelete">
+    <img src="joia4.jpeg" onclick="ampliar(this)">
+    <div class="overlay">Ver imagem</div>
+    <div class="info">
+        <span class="status vendido">Vendido</span>
+        <div>Pulseira Rústica</div>
+        <div class="price">R$ 55</div>
+        <a class="btn btn-disabled">Indisponível</a>
+    </div>
+</div>
+
+<div class="card" data-categoria="bracelete">
+    <img src="joia5.jpeg" onclick="ampliar(this)">
+    <div class="overlay">Ver imagem</div>
+    <div class="info">
+        <span class="status vendido">Vendido</span>
+        <div>Pulseira Rústica</div>
+        <div class="price">R$ 55</div>
+        <a class="btn btn-disabled">Indisponível</a>
+    </div>
+</div>
+
+<div class="card" data-categoria="bracelete">
+    <img src="joia6.jpeg" onclick="ampliar(this)">
+    <div class="overlay">Ver imagem</div>
+    <div class="info">
+        <span class="status vendido">Vendido</span>
+        <div>Pulseira Rústica</div>
+        <div class="price">R$ 55</div>
+        <a class="btn btn-disabled">Indisponível</a>
+    </div>
+</div>
+
+<div class="card" data-categoria="bracelete">
+    <img src="joia7.jpeg" onclick="ampliar(this)">
+    <div class="overlay">Ver imagem</div>
+    <div class="info">
+        <span class="status vendido">Vendido</span>
+        <div>Pulseira Rústica</div>
+        <div class="price">R$ 55</div>
+        <a class="btn btn-disabled">Indisponível</a>
+    </div>
+</div>
+
+<div class="card" data-categoria="bracelete">
+    <img src="joia8.jpeg" onclick="ampliar(this)">
+    <div class="overlay">Ver imagem</div>
+    <div class="info">
+        <span class="status vendido">Vendido</span>
+        <div>Pulseira Rústica</div>
+        <div class="price">R$ 55</div>
+        <a class="btn btn-disabled">Indisponível</a>
+    </div>
+</div>
+
+<div class="card" data-categoria="bracelete">
+    <img src="joia9.jpeg" onclick="ampliar(this)">
+    <div class="overlay">Ver imagem</div>
+    <div class="info">
+        <span class="status vendido">Vendido</span>
+        <div>Pulseira Rústica</div>
+        <div class="price">R$ 55</div>
+        <a class="btn btn-disabled">Indisponível</a>
+    </div>
+</div>
+
+
 
 </section>
 
