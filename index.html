@@ -27,6 +27,11 @@ header {
     display: flex;
     gap: 10px;
     padding: 10px;
+    overflow-x: auto;
+}
+
+.tabs::-webkit-scrollbar {
+    display: none;
 }
 
 .tab-btn {
@@ -36,10 +41,9 @@ header {
     background: #ddd;
     cursor: pointer;
     border-radius: 25px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
-/* 🔥 MOBILE */
 @media (max-width: 600px) {
     .tab-btn {
         padding: 8px;
@@ -72,6 +76,7 @@ header {
     overflow: hidden;
     background: #fff;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    position: relative;
 }
 
 /* IMAGEM */
@@ -83,6 +88,19 @@ header {
     object-fit: contain;
     padding: 10px;
     cursor: zoom-in;
+}
+
+/* 🔍 ÍCONE DE LUPA */
+.lupa {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 18px;
+    padding: 6px 9px;
+    border-radius: 50%;
+    pointer-events: none;
 }
 
 /* INFO */
@@ -126,7 +144,7 @@ header {
 .reservado { background: #fff3cd; color: #856404; }
 .vendido { background: #f8d7da; color: #721c24; }
 
-/* 🔍 ZOOM */
+/* ZOOM */
 #zoom {
     display: none;
     position: fixed;
@@ -170,6 +188,7 @@ footer {
 
 <div class="card" data-categoria="colar">
     <img src="joia1.jpeg" onclick="ampliar(this)">
+    <div class="lupa">🔍</div>
     <div class="info">
         <span class="status disponivel">Disponível</span>
         <div>Colar Natural de Madeira</div>
@@ -180,6 +199,7 @@ footer {
 
 <div class="card" data-categoria="brinco">
     <img src="joia2.jpeg" onclick="ampliar(this)">
+    <div class="lupa">🔍</div>
     <div class="info">
         <span class="status reservado">Reservado</span>
         <div>Brinco Madeira</div>
@@ -190,6 +210,7 @@ footer {
 
 <div class="card" data-categoria="brinco">
     <img src="joia3.jpeg" onclick="ampliar(this)">
+    <div class="lupa">🔍</div>
     <div class="info">
         <span class="status reservado">Reservado</span>
         <div>Brinco Madeira</div>
@@ -200,6 +221,7 @@ footer {
 
 <div class="card" data-categoria="brinco">
     <img src="joia4.jpeg" onclick="ampliar(this)">
+    <div class="lupa">🔍</div>
     <div class="info">
         <span class="status reservado">Reservado</span>
         <div>Brinco Madeira</div>
@@ -210,6 +232,7 @@ footer {
 
 <div class="card" data-categoria="brinco">
     <img src="joia5.jpeg" onclick="ampliar(this)">
+    <div class="lupa">🔍</div>
     <div class="info">
         <span class="status reservado">Reservado</span>
         <div>Brinco Madeira</div>
@@ -220,6 +243,7 @@ footer {
 
 <div class="card" data-categoria="brinco">
     <img src="joia6.jpeg" onclick="ampliar(this)">
+    <div class="lupa">🔍</div>
     <div class="info">
         <span class="status reservado">Reservado</span>
         <div>Brinco Madeira</div>
@@ -230,6 +254,7 @@ footer {
 
 <div class="card" data-categoria="brinco">
     <img src="joia7.jpeg" onclick="ampliar(this)">
+    <div class="lupa">🔍</div>
     <div class="info">
         <span class="status reservado">Reservado</span>
         <div>Brinco Madeira</div>
@@ -240,6 +265,7 @@ footer {
 
 <div class="card" data-categoria="brinco">
     <img src="joia8.jpeg" onclick="ampliar(this)">
+    <div class="lupa">🔍</div>
     <div class="info">
         <span class="status reservado">Reservado</span>
         <div>Brinco Madeira</div>
@@ -250,6 +276,7 @@ footer {
 
 <div class="card" data-categoria="brinco">
     <img src="joia9.jpeg" onclick="ampliar(this)">
+    <div class="lupa">🔍</div>
     <div class="info">
         <span class="status reservado">Reservado</span>
         <div>Brinco Madeira</div>
