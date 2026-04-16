@@ -70,9 +70,9 @@ header {
     padding: 30px;
     border-radius: 12px;
     text-align: center;
-    max-width: 400px;
+    max-width: 450px;
     width: 90%;
-    max-height: 80vh;
+    max-height: 85vh;
     overflow-y: auto;
 }
 
@@ -80,7 +80,7 @@ header {
 .modal-content select {
     width: 100%;
     padding: 12px;
-    margin: 10px 0;
+    margin: 8px 0;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 14px;
@@ -94,6 +94,7 @@ header {
     border-radius: 6px;
     cursor: pointer;
     margin: 5px;
+    font-size: 14px;
 }
 
 .modal-content button:hover {
@@ -362,7 +363,7 @@ footer {
 /* FORMULÁRIO NO MODAL */
 .form-group {
     text-align: left;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
@@ -370,6 +371,7 @@ footer {
     margin-bottom: 5px;
     font-weight: bold;
     font-size: 14px;
+    color: #333;
 }
 
 .form-group small {
@@ -383,6 +385,7 @@ footer {
     background: #2f3e34 !important;
     width: 100%;
     margin-top: 10px;
+    font-weight: bold;
 }
 
 .btn-primary:hover {
@@ -393,6 +396,20 @@ hr {
     margin: 20px 0;
     border: none;
     border-top: 1px solid #ddd;
+}
+
+h3, h4 {
+    margin-bottom: 15px;
+    color: #2f3e34;
+}
+
+.resumo-box {
+    background: #f0f2f0;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.8;
 }
 </style>
 </head>
@@ -422,12 +439,12 @@ hr {
     <img id="img-zoom">
 </div>
 
-<!-- Modal de login admin -->
+<!-- Modal de admin -->
 <div id="adminModal" class="modal">
     <div class="modal-content">
-        <h3>🔒 Área administrativa</h3>
         <div id="loginSection">
-            <p>Digite a senha para gerenciar vendas:</p>
+            <h3>🔒 Área Administrativa</h3>
+            <p>Digite a senha para gerenciar o site:</p>
             <input type="password" id="adminPassword" placeholder="Senha" autocomplete="off">
             <div>
                 <button onclick="loginAdmin()">Entrar</button>
@@ -460,27 +477,29 @@ hr {
             
             <div class="form-group">
                 <label>Nome do arquivo da imagem:</label>
-                <input type="text" id="novaPecaImg" placeholder="Ex: joia18.jpeg ou foto-nova.jpg">
-                <small>⚠️ Coloque a imagem na mesma pasta do site primeiro!</small>
+                <input type="text" id="novaPecaImg" placeholder="Ex: joia18.jpg">
+                <small>⚠️ ATENÇÃO: Coloque a imagem na mesma pasta do site primeiro!</small>
             </div>
             
             <button class="btn-primary" onclick="adicionarNovaPeca()">➕ Adicionar peça</button>
             
             <hr>
             
-            <h4>📊 Resumo</h4>
-            <p id="resumoInfo">Carregando...</p>
+            <h4>📊 Resumo do acervo</h4>
+            <div class="resumo-box" id="resumoInfo">
+                Carregando...
+            </div>
             
             <hr>
             
-            <button onclick="logoutAdmin()" style="background:#dc3545;">🚪 Sair do modo admin</button>
+            <button onclick="logoutAdmin()" style="background:#dc3545; width:100%;">🚪 Sair do modo administrador</button>
         </div>
     </div>
 </div>
 
 <!-- Badge de admin logado -->
 <div id="adminBadge" class="admin-badge">
-    👑 Modo Admin
+    👑 Modo Admin Ativo
     <button onclick="logoutAdmin()">Sair</button>
 </div>
 
@@ -494,7 +513,6 @@ const ADMIN_PASSWORD = "verdeleve2024";
 
 // ==================== CARREGAR DADOS INICIAIS ====================
 function carregarDadosIniciais() {
-    // Dados iniciais das suas joias
     const dadosIniciais = [
         { id: 1, numero: "1", categoria: "colar", nome: "Colar marchetaria de Madeira", preco: 50, status: "disponivel", img: "joia1.jpeg" },
         { id: 2, numero: "2", categoria: "colar", nome: "Colar de Madeira", preco: 45, status: "reservado", img: "joia2.jpeg" },
@@ -519,7 +537,6 @@ function carregarDadosIniciais() {
 }
 
 function atualizarUltimoNumero() {
-    // Encontra o maior número usado (convertendo para número)
     let maxNumero = 0;
     joias.forEach(joia => {
         const num = parseInt(joia.numero);
@@ -537,9 +554,14 @@ function salvarNoLocalStorage() {
 
 function carregarDoLocalStorage() {
     const saved = localStorage.getItem('verdeleve_joias');
-    if (saved) {
-        joias = JSON.parse(saved);
-        ultimoNumeroUsado = parseInt(localStorage.getItem('verdeleve_ultimoNumero')) || 0;
+    if (saved && saved !== 'undefined') {
+        try {
+            joias = JSON.parse(saved);
+            const savedNum = localStorage.getItem('verdeleve_ultimoNumero');
+            ultimoNumeroUsado = savedNum ? parseInt(savedNum) : 0;
+        } catch(e) {
+            carregarDadosIniciais();
+        }
     } else {
         carregarDadosIniciais();
     }
@@ -550,6 +572,7 @@ function loginAdmin() {
     const password = document.getElementById('adminPassword').value;
     if (password === ADMIN_PASSWORD) {
         isAdmin = true;
+        // Esconde login e mostra painel
         document.getElementById('loginSection').style.display = 'none';
         document.getElementById('adminPanel').style.display = 'block';
         atualizarResumoAdmin();
@@ -569,6 +592,10 @@ function logoutAdmin() {
     document.getElementById('loginSection').style.display = 'block';
     document.getElementById('adminPanel').style.display = 'none';
     document.getElementById('adminPassword').value = '';
+    // Limpar campos do formulário
+    document.getElementById('novaPecaNome').value = '';
+    document.getElementById('novaPecaPreco').value = '';
+    document.getElementById('novaPecaImg').value = '';
     renderizarJoias();
     alert('👋 Modo administrador desativado.');
 }
@@ -595,11 +622,12 @@ function atualizarResumoAdmin() {
     const total = joias.length;
     const disponiveis = joias.filter(j => j.status !== 'vendido').length;
     const vendidas = joias.filter(j => j.status === 'vendido').length;
+    const proximoNum = ultimoNumeroUsado + 1;
     document.getElementById('resumoInfo').innerHTML = `
-        📊 Total de peças: ${total}<br>
-        ✨ Peças disponíveis: ${disponiveis}<br>
-        💔 Peças vendidas: ${vendidas}<br>
-        🔢 Próximo número: ${ultimoNumeroUsado + 1}
+        📊 <strong>Total de peças:</strong> ${total}<br>
+        ✨ <strong>Peças disponíveis:</strong> ${disponiveis}<br>
+        💔 <strong>Peças vendidas:</strong> ${vendidas}<br>
+        🔢 <strong>Próximo número:</strong> ${proximoNum}
     `;
 }
 
@@ -622,9 +650,8 @@ function adicionarNovaPeca() {
         return;
     }
     
-    // Gerar próximo número automaticamente
     const proximoNumero = ultimoNumeroUsado + 1;
-    const novoId = Date.now(); // ID único baseado no timestamp
+    const novoId = Date.now();
     
     const novaPeca = {
         id: novoId,
@@ -659,13 +686,13 @@ function marcarComoVendida(id) {
     
     const joia = joias.find(j => j.id === id);
     if (joia && joia.status !== 'vendido') {
-        const confirmar = confirm(`✅ Confirmar VENDA da peça Nº ${joia.numero} - ${joia.nome}?\n\nIsso moverá a peça para "Peças já vendidas".`);
+        const confirmar = confirm(`✅ Confirmar VENDA da peça Nº ${joia.numero} - ${joia.nome}?`);
         if (confirmar) {
             joia.status = 'vendido';
             salvarNoLocalStorage();
             renderizarJoias();
             atualizarResumoAdmin();
-            alert(`✨ Peça Nº ${joia.numero} foi marcada como VENDIDA!`);
+            alert(`✨ Peça Nº ${joia.numero} marcada como VENDIDA!`);
         }
     }
 }
@@ -678,7 +705,7 @@ function restaurarVenda(id) {
     
     const joia = joias.find(j => j.id === id);
     if (joia && joia.status === 'vendido') {
-        const confirmar = confirm(`♻️ Restaurar peça Nº ${joia.numero} - ${joia.nome}?\n\nEla voltará para "Disponíveis".`);
+        const confirmar = confirm(`♻️ Restaurar peça Nº ${joia.numero} - ${joia.nome}?`);
         if (confirmar) {
             joia.status = 'disponivel';
             salvarNoLocalStorage();
@@ -712,7 +739,6 @@ function renderizarJoias() {
         joiasParaMostrar = joias.filter(j => j.categoria === 'bracelete' && j.status !== 'vendido');
     }
     
-    // Ordenar por número
     joiasParaMostrar.sort((a, b) => parseInt(a.numero) - parseInt(b.numero));
     
     if (joiasParaMostrar.length === 0) {
