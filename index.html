@@ -3,615 +3,276 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verdeleve - Jóias Sustentáveis</title>
-
+<title>Verdeleve - Jóias</title>
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background: #f6f4f1;
-    color: #2e2e2e;
-}
-
-/* HEADER */
-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 25px 10px;
-    background: #2f3e34;
-    position: relative;
-}
-
-.logo {
-    width: 400px;
-}
-
-/* Ícone admin (cadeado) */
-.admin-icon {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    background: rgba(255,255,255,0.2);
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-
-.admin-icon:hover {
-    background: rgba(255,255,255,0.3);
-}
-
-/* MODAL ADMIN */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.8);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    text-align: center;
-    max-width: 350px;
-    width: 90%;
-}
-
-.modal-content input {
-    width: 100%;
-    padding: 12px;
-    margin: 15px 0;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 16px;
-}
-
-.modal-content button {
-    padding: 10px 20px;
-    background: #2f3e34;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin: 5px;
-}
-
-.modal-content button:hover {
-    opacity: 0.9;
-}
-
-/* INDICADOR ADMIN */
-.admin-badge {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #2f3e34;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 12px;
-    z-index: 100;
-    display: none;
-    gap: 10px;
-    align-items: center;
-}
-
-.admin-badge button {
-    background: #dc3545;
-    border: none;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 11px;
-}
-
-/* ABAS */
-.tabs {
-    display: flex;
-    gap: 10px;
-    padding: 15px 10px;
-    overflow-x: auto;
-    background: #ffffff;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.tabs::-webkit-scrollbar {
-    display: none;
-}
-
-.tab-btn {
-    flex: 0 0 auto;
-    padding: 10px 20px;
-    border: none;
-    background: #eaeaea;
-    cursor: pointer;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: bold;
-    transition: all 0.3s;
-}
-
-.tab-btn:hover {
-    background: #cbd8d0;
-}
-
-.tab-btn.active {
-    background: #2f3e34;
-    color: #fff;
-}
-
-/* GRID */
-.products {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    padding: 15px;
-}
-
-@media (max-width: 600px) {
-    .products {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* CARD */
-.card {
-    border-radius: 12px;
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-    position: relative;
-    transition: all 0.3s;
-}
-
-/* CARD VENDIDO */
-.card.vendido-card {
-    opacity: 0.7;
-    background: #f5f5f5;
-}
-
-.card.vendido-card .info {
-    background: #f9f9f9;
-}
-
-/* NUMERO */
-.card::after {
-    content: attr(data-numero);
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background: #2f3e34;
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 20px;
-    z-index: 1;
-}
-
-/* IMAGEM */
-.card img {
-    width: 100%;
-    height: 35vw;
-    max-height: 380px;
-    min-height: 180px;
-    object-fit: contain;
-    padding: 10px;
-    cursor: zoom-in;
-    transition: transform 0.3s ease;
-    background: #fff;
-}
-
-.card:hover img {
-    transform: scale(1.02);
-}
-
-/* OVERLAY */
-.overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-size: 13px;
-    opacity: 0;
-    transition: 0.3s;
-    pointer-events: none;
-}
-
-.card:hover .overlay {
-    opacity: 1;
-}
-
-/* INFO */
-.info {
-    padding: 12px;
-    text-align: center;
-}
-
-.price {
-    font-weight: bold;
-    color: #3e5c4d;
-    font-size: 18px;
-    margin: 5px 0;
-}
-
-.product-name {
-    font-weight: 500;
-    margin: 5px 0;
-}
-
-/* BOTÃO WHATSAPP */
-.btn-whats {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #25d366;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    border: none;
-    font-family: inherit;
-    transition: all 0.2s;
-    margin-top: 8px;
-}
-
-.btn-whats:hover {
-    background: #1da15a;
-    transform: scale(1.02);
-}
-
-/* BOTÕES ADMIN (só aparecem no modo admin) */
-.admin-buttons {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.btn-admin {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    font-size: 12px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.2s;
-}
-
-.btn-vender {
-    background: #dc3545;
-    color: white;
-}
-
-.btn-vender:hover {
-    background: #c82333;
-}
-
-.btn-restaurar {
-    background: #ffc107;
-    color: #333;
-}
-
-.btn-restaurar:hover {
-    background: #e0a800;
-}
-
-/* STATUS */
-.status {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
+body { font-family: Arial, sans-serif; background: #f6f4f1; margin: 0; }
+header { background: #2f3e34; padding: 20px; text-align: center; }
+.logo { width: 300px; max-width: 80%; }
+.tabs { display: flex; gap: 10px; padding: 15px; background: white; flex-wrap: wrap; justify-content: center; }
+.tab-btn { padding: 10px 20px; border: none; background: #eaeaea; cursor: pointer; border-radius: 25px; font-weight: bold; }
+.tab-btn.active { background: #2f3e34; color: white; }
+.products { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; }
+@media (max-width: 600px) { .products { grid-template-columns: 1fr; } }
+.card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: relative; padding: 15px; text-align: center; }
+.card img { width: 100%; height: 200px; object-fit: contain; cursor: pointer; }
+.price { color: #3e5c4d; font-weight: bold; font-size: 18px; }
+.status { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 11px; margin-bottom: 8px; }
 .disponivel { background: #d4edda; color: #155724; }
 .reservado { background: #fff3cd; color: #856404; }
 .vendido { background: #6c757d; color: white; }
-
-/* ZOOM */
-#zoom {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.9);
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-}
-
-#zoom img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 10px;
-    background: white;
-}
-
-/* RODAPÉ */
-footer {
-    text-align: center;
-    padding: 20px;
-    font-size: 13px;
-    color: #666;
-    background: #fff;
-    margin-top: 20px;
-}
+.btn-whats { background: #25d366; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-top: 8px; }
+.admin-btn { position: fixed; bottom: 20px; right: 20px; background: #2f3e34; color: white; border: none; padding: 12px 20px; border-radius: 30px; cursor: pointer; z-index: 100; font-weight: bold; }
+.admin-panel { display: none; background: white; padding: 20px; margin: 10px; border-radius: 12px; border: 2px solid #2f3e34; }
+.admin-panel.show { display: block; }
+.admin-panel input, .admin-panel select { padding: 8px; margin: 5px 0; border: 1px solid #ddd; border-radius: 6px; width: 100%; }
+.form-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.form-group { flex: 1; }
+.btn-admin { background: #2f3e34; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+.btn-vender { background: #dc3545; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; margin-top: 5px; }
+.btn-restaurar { background: #ffc107; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; margin-top: 5px; }
+footer { text-align: center; padding: 20px; color: #666; }
+#zoom { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 999; }
+#zoom img { max-width: 90%; max-height: 90%; }
 </style>
 </head>
-
 <body>
 
 <header>
-    <img src="logo.png" class="logo" alt="Verdeleve Logo" onerror="this.src='https://placehold.co/400x100?text=Verdeleve'">
-    <button class="admin-icon" id="adminIcon" title="Área administrativa">🔒</button>
+    <img src="logo.png" class="logo" alt="Verdeleve" onerror="this.src='https://placehold.co/400x100?text=Verdeleve'">
 </header>
 
 <div class="tabs">
-    <button class="tab-btn active" onclick="filtrar('disponiveis', event)">✨ Disponíveis</button>
-    <button class="tab-btn" onclick="filtrar('pecas_vendidas', event)">💔 Peças já vendidas</button>
-    <button class="tab-btn" onclick="filtrar('brinco', event)">Brincos</button>
-    <button class="tab-btn" onclick="filtrar('colar', event)">Colares</button>
-    <button class="tab-btn" onclick="filtrar('bracelete', event)">Braceletes</button>
+    <button class="tab-btn active" onclick="filtrar('disponiveis', this)">✨ Disponíveis</button>
+    <button class="tab-btn" onclick="filtrar('vendidas', this)">💔 Peças já vendidas</button>
+    <button class="tab-btn" onclick="filtrar('brinco', this)">Brincos</button>
+    <button class="tab-btn" onclick="filtrar('colar', this)">Colares</button>
+    <button class="tab-btn" onclick="filtrar('bracelete', this)">Braceletes</button>
 </div>
 
-<section class="products" id="products-container"></section>
+<div class="products" id="products"></div>
 
-<footer>
-    📲 WhatsApp: (11) 96342-9803
-</footer>
+<footer>📲 WhatsApp: (11) 96342-9803</footer>
 
-<div id="zoom" onclick="fecharZoom()">
-    <img id="img-zoom">
-</div>
+<div id="zoom" onclick="fecharZoom()"><img id="zoomImg"></div>
 
-<!-- Modal de login admin -->
-<div id="adminModal" class="modal">
-    <div class="modal-content">
-        <h3>🔒 Área administrativa</h3>
-        <p>Digite a senha para gerenciar vendas:</p>
-        <input type="password" id="adminPassword" placeholder="Senha" autocomplete="off">
-        <div>
-            <button onclick="loginAdmin()">Entrar</button>
-            <button onclick="fecharModal()">Cancelar</button>
+<button class="admin-btn" id="btnAdmin">🔒 Admin</button>
+
+<div class="admin-panel" id="adminPanel">
+    <h3>👑 Painel Administrador</h3>
+    <div id="loginBox">
+        <input type="password" id="senha" placeholder="Digite a senha">
+        <button onclick="logar()">Entrar</button>
+    </div>
+    <div id="adminBox" style="display:none">
+        <h4>➕ Adicionar nova peça</h4>
+        <div class="form-row">
+            <div class="form-group"><input type="text" id="nome" placeholder="Nome da peça"></div>
+            <div class="form-group">
+                <select id="categoria">
+                    <option value="colar">Colar</option>
+                    <option value="brinco">Brinco</option>
+                    <option value="bracelete">Bracelete</option>
+                </select>
+            </div>
+            <div class="form-group"><input type="number" id="preco" placeholder="Preço R$"></div>
+            <div class="form-group"><input type="text" id="imagem" placeholder="Nome da imagem (ex: joia18.jpg)"></div>
+            <div class="form-group"><button class="btn-admin" onclick="adicionarPeca()">➕ Adicionar</button></div>
         </div>
+        <div id="resumo" style="background:#f0f2f0;padding:10px;border-radius:8px;margin-top:10px"></div>
+        <button onclick="sairAdmin()" style="background:#dc3545;color:white;border:none;padding:8px 16px;margin-top:10px;border-radius:6px">🚪 Sair do modo admin</button>
     </div>
 </div>
 
-<!-- Badge de admin logado -->
-<div id="adminBadge" class="admin-badge">
-    👑 Modo Admin
-    <button onclick="logoutAdmin()">Sair</button>
-</div>
-
 <script>
-// ==================== DADOS DAS JÓIAS ====================
 let joias = [
-    { id: 1, numero: "1", categoria: "colar", nome: "Colar marchetaria de Madeira", preco: 50, status: "disponivel", img: "joia1.jpeg" },
-    { id: 2, numero: "2", categoria: "colar", nome: "Colar de Madeira", preco: 45, status: "reservado", img: "joia2.jpeg" },
-    { id: 3, numero: "3", categoria: "colar", nome: "Colar de Madeira", preco: 45, status: "reservado", img: "joia3.jpeg" },
-    { id: 4, numero: "4", categoria: "colar", nome: "Colar de Madeira", preco: 55, status: "disponivel", img: "joia4.jpeg" },
-    { id: 5, numero: "5", categoria: "colar", nome: "Colar de Madeira", preco: 50, status: "disponivel", img: "joia5.jpeg" },
-    { id: 6, numero: "6", categoria: "colar", nome: "Colar de Madeira", preco: 40, status: "disponivel", img: "joia6.jpeg" },
-    { id: 7, numero: "7", categoria: "brinco", nome: "Brinco de Madeira", preco: 50, status: "reservado", img: "joia7.jpeg" },
-    { id: 8, numero: "8", categoria: "colar", nome: "Colar de Madeira", preco: 45, status: "disponivel", img: "joia8.jpeg" },
-    { id: 9, numero: "10", categoria: "bracelete", nome: "Bracelete de Madeira", preco: 55, status: "reservado", img: "joia10.jpg" },
-    { id: 10, numero: "11", categoria: "colar", nome: "Colar de Madeira", preco: 40, status: "disponivel", img: "joia11.jpg" },
-    { id: 11, numero: "13", categoria: "colar", nome: "Colar de Madeira", preco: 40, status: "reservado", img: "joia13.jpg" },
-    { id: 12, numero: "14", categoria: "colar", nome: "Colar de Madeira", preco: 35, status: "disponivel", img: "joia14.jpg" },
-    { id: 13, numero: "15", categoria: "colar", nome: "Colar de Madeira", preco: 50, status: "disponivel", img: "joia15.jpeg" },
-    { id: 14, numero: "16", categoria: "brinco", nome: "Brinco de Madeira", preco: 30, status: "disponivel", img: "joia16.jpeg" },
-    { id: 15, numero: "17", categoria: "brinco", nome: "Brinco de Madeira", preco: 30, status: "disponivel", img: "joia17.jpeg" }
+    { id:1, numero:"1", categoria:"colar", nome:"Colar marchetaria de Madeira", preco:50, status:"disponivel", img:"joia1.jpeg" },
+    { id:2, numero:"2", categoria:"colar", nome:"Colar de Madeira", preco:45, status:"reservado", img:"joia2.jpeg" },
+    { id:3, numero:"3", categoria:"colar", nome:"Colar de Madeira", preco:45, status:"reservado", img:"joia3.jpeg" },
+    { id:4, numero:"4", categoria:"colar", nome:"Colar de Madeira", preco:55, status:"disponivel", img:"joia4.jpeg" },
+    { id:5, numero:"5", categoria:"colar", nome:"Colar de Madeira", preco:50, status:"disponivel", img:"joia5.jpeg" },
+    { id:6, numero:"6", categoria:"colar", nome:"Colar de Madeira", preco:40, status:"disponivel", img:"joia6.jpeg" },
+    { id:7, numero:"7", categoria:"brinco", nome:"Brinco de Madeira", preco:50, status:"reservado", img:"joia7.jpeg" },
+    { id:8, numero:"8", categoria:"colar", nome:"Colar de Madeira", preco:45, status:"disponivel", img:"joia8.jpeg" },
+    { id:9, numero:"10", categoria:"bracelete", nome:"Bracelete de Madeira", preco:55, status:"reservado", img:"joia10.jpg" },
+    { id:10, numero:"11", categoria:"colar", nome:"Colar de Madeira", preco:40, status:"disponivel", img:"joia11.jpg" },
+    { id:11, numero:"13", categoria:"colar", nome:"Colar de Madeira", preco:40, status:"reservado", img:"joia13.jpg" },
+    { id:12, numero:"14", categoria:"colar", nome:"Colar de Madeira", preco:35, status:"disponivel", img:"joia14.jpg" },
+    { id:13, numero:"15", categoria:"colar", nome:"Colar de Madeira", preco:50, status:"disponivel", img:"joia15.jpeg" },
+    { id:14, numero:"16", categoria:"brinco", nome:"Brinco de Madeira", preco:30, status:"disponivel", img:"joia16.jpeg" },
+    { id:15, numero:"17", categoria:"brinco", nome:"Brinco de Madeira", preco:30, status:"disponivel", img:"joia17.jpeg" }
 ];
 
-// Estado da aplicação
-let currentFilter = "disponiveis";
-let isAdmin = false; // Controla se o admin está logado
-const ADMIN_PASSWORD = "verdeleve2024"; // Senha padrão - você pode mudar
+let ultimoNumero = 17;
+let filtroAtual = "disponiveis";
+let adminLogado = false;
+const SENHA = "verdeleve2024";
 
-// ==================== FUNÇÕES DE ADMIN ====================
-function loginAdmin() {
-    const password = document.getElementById('adminPassword').value;
-    if (password === ADMIN_PASSWORD) {
-        isAdmin = true;
-        fecharModal();
-        document.getElementById('adminBadge').style.display = 'flex';
-        renderizarJoias(); // Re-renderiza para mostrar botões admin
-        alert('✅ Modo administrador ativado! Agora você pode gerenciar as vendas.');
+function salvar() {
+    localStorage.setItem("verdeleve_joias", JSON.stringify(joias));
+    localStorage.setItem("verdeleve_ultimoNumero", ultimoNumero);
+}
+
+function carregarDados() {
+    let saved = localStorage.getItem("verdeleve_joias");
+    if(saved) {
+        joias = JSON.parse(saved);
+        ultimoNumero = parseInt(localStorage.getItem("verdeleve_ultimoNumero")) || 17;
+    }
+}
+
+function logar() {
+    let s = document.getElementById("senha").value;
+    if(s === SENHA) {
+        adminLogado = true;
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("adminBox").style.display = "block";
+        atualizarResumo();
+        renderizar();
+        alert("✅ Modo administrador ativado!");
     } else {
-        alert('❌ Senha incorreta! Acesso negado.');
+        alert("❌ Senha incorreta!");
     }
 }
 
-function logoutAdmin() {
-    isAdmin = false;
-    document.getElementById('adminBadge').style.display = 'none';
-    renderizarJoias(); // Re-renderiza sem botões admin
-    alert('👋 Modo administrador desativado.');
+function sairAdmin() {
+    adminLogado = false;
+    document.getElementById("loginBox").style.display = "block";
+    document.getElementById("adminBox").style.display = "none";
+    document.getElementById("senha").value = "";
+    renderizar();
 }
 
-function abrirModal() {
-    document.getElementById('adminModal').style.display = 'flex';
+function atualizarResumo() {
+    let total = joias.length;
+    let disp = joias.filter(j => j.status !== "vendido").length;
+    let vend = joias.filter(j => j.status === "vendido").length;
+    document.getElementById("resumo").innerHTML = `📊 Total: ${total} | ✨ Disponíveis: ${disp} | 💔 Vendidas: ${vend} | 🔢 Próximo Nº: ${ultimoNumero+1}`;
 }
 
-function fecharModal() {
-    document.getElementById('adminModal').style.display = 'none';
-    document.getElementById('adminPassword').value = '';
-}
-
-// Função para marcar joia como vendida (só funciona se admin estiver logado)
-function marcarComoVendida(id) {
-    if (!isAdmin) {
-        alert('🔒 Acesso restrito. Faça login como administrador.');
-        return;
-    }
+function adicionarPeca() {
+    let nome = document.getElementById("nome").value.trim();
+    let categoria = document.getElementById("categoria").value;
+    let preco = parseInt(document.getElementById("preco").value);
+    let img = document.getElementById("imagem").value.trim();
     
-    const joia = joias.find(j => j.id === id);
-    if (joia && joia.status !== 'vendido') {
-        const confirmar = confirm(`✅ Confirmar VENDA da peça nº ${joia.numero} - ${joia.nome}?\n\nIsso moverá a peça para "Peças já vendidas".`);
-        if (confirmar) {
-            joia.status = 'vendido';
-            renderizarJoias();
-            alert(`✨ Peça nº ${joia.numero} foi marcada como VENDIDA!`);
+    if(!nome) { alert("❌ Digite o nome da peça"); return; }
+    if(!preco || preco <= 0) { alert("❌ Digite um preço válido"); return; }
+    if(!img) { alert("❌ Digite o nome do arquivo da imagem"); return; }
+    
+    ultimoNumero++;
+    let novaPeca = {
+        id: Date.now(),
+        numero: ultimoNumero.toString(),
+        categoria: categoria,
+        nome: nome,
+        preco: preco,
+        status: "disponivel",
+        img: img
+    };
+    
+    joias.push(novaPeca);
+    salvar();
+    
+    document.getElementById("nome").value = "";
+    document.getElementById("preco").value = "";
+    document.getElementById("imagem").value = "";
+    
+    atualizarResumo();
+    renderizar();
+    alert(`✅ Peça Nº ${ultimoNumero} adicionada com sucesso!`);
+}
+
+function marcarVendida(id) {
+    if(!adminLogado) { alert("🔒 Acesso restrito"); return; }
+    let joia = joias.find(j => j.id === id);
+    if(joia && joia.status !== "vendido") {
+        if(confirm(`✅ Confirmar venda da peça Nº ${joia.numero} - ${joia.nome}?`)) {
+            joia.status = "vendido";
+            salvar();
+            renderizar();
+            atualizarResumo();
+            alert(`✨ Peça Nº ${joia.numero} marcada como VENDIDA!`);
         }
     }
 }
 
-// Função para restaurar joia (voltar para disponível) - só admin
 function restaurarVenda(id) {
-    if (!isAdmin) {
-        alert('🔒 Acesso restrito. Faça login como administrador.');
-        return;
-    }
-    
-    const joia = joias.find(j => j.id === id);
-    if (joia && joia.status === 'vendido') {
-        const confirmar = confirm(`♻️ Restaurar peça nº ${joia.numero} - ${joia.nome}?\n\nEla voltará para "Disponíveis".`);
-        if (confirmar) {
-            joia.status = 'disponivel';
-            renderizarJoias();
-            alert(`🔄 Peça nº ${joia.numero} restaurada para DISPONÍVEL!`);
+    if(!adminLogado) { alert("🔒 Acesso restrito"); return; }
+    let joia = joias.find(j => j.id === id);
+    if(joia && joia.status === "vendido") {
+        if(confirm(`♻️ Restaurar peça Nº ${joia.numero} - ${joia.nome}?`)) {
+            joia.status = "disponivel";
+            salvar();
+            renderizar();
+            atualizarResumo();
+            alert(`🔄 Peça Nº ${joia.numero} restaurada para DISPONÍVEL!`);
         }
     }
 }
 
-// ==================== FUNÇÕES DE RENDERIZAÇÃO ====================
-function renderizarJoias() {
-    const container = document.getElementById('products-container');
-    container.innerHTML = '';
+function renderizar() {
+    let container = document.getElementById("products");
+    container.innerHTML = "";
     
-    let joiasParaMostrar = [];
+    let lista = [];
+    if(filtroAtual === "disponiveis") lista = joias.filter(j => j.status !== "vendido");
+    else if(filtroAtual === "vendidas") lista = joias.filter(j => j.status === "vendido");
+    else if(filtroAtual === "brinco") lista = joias.filter(j => j.categoria === "brinco" && j.status !== "vendido");
+    else if(filtroAtual === "colar") lista = joias.filter(j => j.categoria === "colar" && j.status !== "vendido");
+    else if(filtroAtual === "bracelete") lista = joias.filter(j => j.categoria === "bracelete" && j.status !== "vendido");
     
-    // Lógica de filtro
-    if (currentFilter === 'disponiveis') {
-        joiasParaMostrar = joias.filter(j => j.status !== 'vendido');
-    } 
-    else if (currentFilter === 'pecas_vendidas') {
-        joiasParaMostrar = joias.filter(j => j.status === 'vendido');
-    }
-    else if (currentFilter === 'brinco') {
-        joiasParaMostrar = joias.filter(j => j.categoria === 'brinco' && j.status !== 'vendido');
-    }
-    else if (currentFilter === 'colar') {
-        joiasParaMostrar = joias.filter(j => j.categoria === 'colar' && j.status !== 'vendido');
-    }
-    else if (currentFilter === 'bracelete') {
-        joiasParaMostrar = joias.filter(j => j.categoria === 'bracelete' && j.status !== 'vendido');
-    }
+    lista.sort((a,b) => parseInt(a.numero) - parseInt(b.numero));
     
-    if (joiasParaMostrar.length === 0) {
-        let msg = currentFilter === 'pecas_vendidas' ? '💔 Nenhuma peça vendida ainda' : '✨ Nenhuma joia encontrada';
-        container.innerHTML = `<div style="text-align: center; padding: 50px; grid-column: 1/-1;">${msg}</div>`;
+    if(lista.length === 0) {
+        container.innerHTML = "<div style='text-align:center;padding:50px'>✨ Nenhuma peça encontrada</div>";
         return;
     }
     
-    joiasParaMostrar.forEach(joia => {
-        const card = criarCard(joia);
+    for(let joia of lista) {
+        let card = document.createElement("div");
+        card.className = "card";
+        if(joia.status === "vendido") card.style.opacity = "0.7";
+        
+        let statusClass = joia.status === "disponivel" ? "disponivel" : (joia.status === "reservado" ? "reservado" : "vendido");
+        let statusText = joia.status === "disponivel" ? "Disponível" : (joia.status === "reservado" ? "Reservado" : "Vendido");
+        
+        let botoesAdmin = "";
+        if(adminLogado) {
+            if(joia.status !== "vendido") {
+                botoesAdmin = `<div style="margin-top:10px"><button class="btn-vender" onclick="marcarVendida(${joia.id})">🔨 Marcar como vendida</button></div>`;
+            } else {
+                botoesAdmin = `<div style="margin-top:10px"><button class="btn-restaurar" onclick="restaurarVenda(${joia.id})">↩️ Restaurar para disponível</button></div>`;
+            }
+        }
+        
+        card.innerHTML = `
+            <img src="${joia.img}" onclick="abrirZoom(this.src)" onerror="this.src='https://placehold.co/400x400?text=Imagem+não+encontrada'">
+            <div>
+                <span class="status ${statusClass}">${statusText}</span>
+                <div style="font-weight:bold; margin:5px 0">${joia.nome}</div>
+                <div class="price">R$ ${joia.preco}</div>
+                ${joia.status !== "vendido" ? `<button class="btn-whats" onclick="comprar(${joia.numero})">💬 Tenho interesse - WhatsApp</button>` : '<div style="font-size:12px;color:#999;margin-top:8px">🔒 Peça já comercializada</div>'}
+                ${botoesAdmin}
+            </div>
+        `;
         container.appendChild(card);
-    });
+    }
 }
 
-function criarCard(joia) {
-    const card = document.createElement('div');
-    card.className = 'card';
-    if (joia.status === 'vendido') {
-        card.classList.add('vendido-card');
-    }
-    card.setAttribute('data-numero', joia.numero);
-    card.setAttribute('data-id', joia.id);
-    card.setAttribute('data-categoria', joia.categoria);
-    
-    // Status text
-    let statusText = '';
-    let statusClass = '';
-    if (joia.status === 'disponivel') {
-        statusText = 'Disponível';
-        statusClass = 'disponivel';
-    } else if (joia.status === 'reservado') {
-        statusText = 'Reservado';
-        statusClass = 'reservado';
-    } else {
-        statusText = 'Vendido';
-        statusClass = 'vendido';
-    }
-    
-    // Botões administrativos (só aparecem se admin estiver logado)
-    let adminButtonsHtml = '';
-    if (isAdmin) {
-        if (joia.status !== 'vendido') {
-            adminButtonsHtml = `
-                <div class="admin-buttons">
-                    <button class="btn-admin btn-vender" onclick="marcarComoVendida(${joia.id})">
-                        🔨 Marcar como vendida
-                    </button>
-                </div>
-            `;
-        } else {
-            adminButtonsHtml = `
-                <div class="admin-buttons">
-                    <button class="btn-admin btn-restaurar" onclick="restaurarVenda(${joia.id})">
-                        ↩️ Restaurar para disponível
-                    </button>
-                </div>
-            `;
-        }
-    }
-    
-    // HTML do card
-    card.innerHTML = `
-        <img src="${joia.img}" onclick="ampliar(this)" onerror="this.src='https://placehold.co/400x400?text=Imagem+não+encontrada'">
-        <div class="overlay">🔍 Clique para ampliar</div>
-        <div class="info">
-            <span class="status ${statusClass}">${statusText}</span>
-            <div class="product-name">${joia.nome}</div>
-            <div class="price">R$ ${joia.preco}</div>
-            ${joia.status !== 'vendido' ? `<button class="btn-whats" onclick="comprar(this)">💬 Tenho interesse - WhatsApp</button>` : '<div style="font-size:12px; color:#999; margin-top:8px;">🔒 Peça já comercializada</div>'}
-            ${adminButtonsHtml}
-        </div>
-    `;
-    
-    return card;
+function filtrar(tipo, btn) {
+    filtroAtual = tipo;
+    let botoes = document.querySelectorAll(".tab-btn");
+    botoes.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderizar();
 }
 
-// ==================== FUNÇÕES DE FILTRO E INTERAÇÃO ====================
-function filtrar(filtro, event) {
-    currentFilter = filtro;
-    
-    // Atualizar classe ativa nos botões
-    const botoes = document.querySelectorAll('.tab-btn');
-    botoes.forEach(btn => btn.classList.remove('active'));
-    if (event && event.target) {
-        event.target.classList.add('active');
-    }
-    
-    renderizarJoias();
+function comprar(numero) {
+    window.open(`https://wa.me/5511963429803?text=Olá, tenho interesse na joia número ${numero}`);
 }
 
-function ampliar(img) {
-    document.getElementById("img-zoom").src = img.src;
+function abrirZoom(src) {
+    document.getElementById("zoomImg").src = src;
     document.getElementById("zoom").style.display = "flex";
 }
 
@@ -619,29 +280,15 @@ function fecharZoom() {
     document.getElementById("zoom").style.display = "none";
 }
 
-function comprar(botao) {
-    const card = botao.closest('.card');
-    const numero = card.getAttribute('data-numero');
-    const msg = `Olá, tenho interesse na joia número ${numero}`;
-    window.open(`https://wa.me/5511963429803?text=${encodeURIComponent(msg)}`);
-}
+// Inicializar
+carregarDados();
+renderizar();
 
-// ==================== INICIALIZAÇÃO ====================
-document.addEventListener('DOMContentLoaded', () => {
-    renderizarJoias();
-    
-    // Configurar evento do ícone admin
-    document.getElementById('adminIcon').addEventListener('click', abrirModal);
-    
-    // Fechar modal ao clicar fora
-    window.onclick = function(event) {
-        const modal = document.getElementById('adminModal');
-        if (event.target === modal) {
-            fecharModal();
-        }
-    };
-});
+// Botão admin
+document.getElementById("btnAdmin").onclick = function() {
+    let painel = document.getElementById("adminPanel");
+    painel.classList.toggle("show");
+};
 </script>
-
 </body>
 </html>
