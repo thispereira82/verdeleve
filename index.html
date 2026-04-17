@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verdeleve - Jóias</title>
+<title>Verdeleve - Jóias Sustentáveis</title>
 <style>
 body { font-family: Arial, sans-serif; background: #f6f4f1; margin: 0; }
 header { background: #2f3e34; padding: 20px; text-align: center; }
@@ -287,7 +287,11 @@ renderizar();
 // Botão admin
 document.getElementById("btnAdmin").onclick = function() {
     let painel = document.getElementById("adminPanel");
-    painel.classList.toggle("show");
+    if(painel.classList.contains("show")) {
+        painel.classList.remove("show");
+    } else {
+        painel.classList.add("show");
+    }
 };
 </script>
 </body>
